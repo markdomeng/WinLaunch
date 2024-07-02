@@ -44,8 +44,12 @@ namespace WinLaunch
 
         public SpringboardManager SBM { get; set; }
 
-        //Animations
-        private AnimationHelper CanvasOpacityAnim = null;
+        public RunningAppsManager RAM { get; set; }
+
+        public Dictionary<SBItem, IntPtr> SBItemHandleMap { get; set; }
+
+    //Animations
+    private AnimationHelper CanvasOpacityAnim = null;
 
         private AnimationHelper CanvasScaleAnim = null;
 
@@ -218,6 +222,11 @@ namespace WinLaunch
 
             SBM.Init(this, this.MainCanvas);
             SBM.ParentWindow = this;
+        }
+        private void InitRAM()
+        {
+            RAM = new RunningAppsManager();
+            SBItemHandleMap = new Dictionary<SBItem, IntPtr>();
         }
 
         private void BeginInitIC(Action continueWith)

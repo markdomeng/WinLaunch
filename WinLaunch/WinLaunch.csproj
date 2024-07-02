@@ -258,6 +258,7 @@
     <Compile Include="MainWindow\GamepadControls.cs" />
     <Compile Include="MainWindow\ItemManagement.cs" />
     <Compile Include="MainWindow\Rendering.cs" />
+    <Compile Include="MainWindow\RunningAppsManager.cs" />
     <Compile Include="MainWindow\SettingsManagement.cs" />
     <Compile Include="MainWindow\WindowManagement.cs" />
     <Compile Include="PortabilityManager.cs" />

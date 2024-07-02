@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -372,7 +373,8 @@ namespace WinLaunch
 
             //init springboard manager
             InitSBM();
-
+            InitRAM();
+            
             //begin loading theme
             BeginLoadTheme(() =>
             {
@@ -447,6 +449,7 @@ namespace WinLaunch
             WPWatch.AccentColorChanged += WPWatch_AccentColorChanged;
 
             SBM.ItemsUpdated += SBM_ItemsUpdated;
+            
             #endregion hook up events
 
             //show if not hidden and on first ever startup
@@ -488,6 +491,35 @@ namespace WinLaunch
             }
 
             e.Handled = true;
+        }
+
+        private void ReloadRunningApps()
+        {
+            RAM.Load();
+            if (RAM.IsLoaded)
+            {
+                RunningAppsContainer.Visibility = Visibility.Visible;
+                RunningApps.Children.Clear();
+                SBItemHandleMap.Clear();
+                foreach (var window in RAM.RunningWindows)
+                {
+                    SBItem item = new SBItem(window.Title, "", "", "", "", "", window.Icon);
+                    SBItemHandleMap.Add(item,window.Handle);
+                    item.ContentRef.MouseDown += ContentRef_MouseDown;
+                    RunningApps.Children.Add(item.ContentRef);
+                    RunningApps.UpdateLayout();
+                }
+            }
+            else if(SBItemHandleMap.Count <= 0)
+            {
+                RunningAppsContainer.Visibility = Visibility.Collapsed;
+            }
+        }
+        
+        private void ContentRef_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            RAM.BringToFront(SBItemHandleMap[(SBItem)((ContentControl)sender).Content]);
+            HideWindow();
         }
 
         //update window size when display settings change

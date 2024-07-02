@@ -335,7 +335,6 @@
 
             </ContextMenu>
         </Grid.ContextMenu>
-
         <!--  Background  -->
         <Grid x:Name="BGGrid" Visibility="Visible">
             <Image x:Name="Wallpaperbottom"
@@ -480,7 +479,6 @@
                         Visibility="Collapsed" />
                 </Grid>
             </Grid>
-
 
             <Grid x:Name="FolderGridNew"
                 Width="{Binding ElementName=MainCanvas, Path=ActualWidth}"
@@ -1918,6 +1916,7 @@
                     </Grid>
                 </Grid>
             </StackPanel>
+            
         </Border>
 
         <Grid
@@ -2193,5 +2192,11 @@
                 ToolTip="{my:Loc AssistantClose}"
                 Visibility="Hidden" />
         </Grid>
+
+        <Grid x:Name="RunningAppsContainer" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Grid Grid.Row="0" Background="Black" Opacity="0.3" />
+            <DockPanel Grid.Row="0" x:Name="RunningApps" Opacity="1" HorizontalAlignment="Center" Height="Auto" />
+        </Grid>
+
     </Grid>
 </Window>

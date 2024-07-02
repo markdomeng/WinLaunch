@@ -729,7 +729,7 @@ namespace WinLaunch
                 Keyboard.Focus(tbSearch);
                 SBM.UnselectItem();
             }
-
+            ReloadRunningApps();            
             StartFlyInAnimation();
         }
 
